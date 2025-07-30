@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Town Gohana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* General Styles */
+        :root {
+            --red: #FF0000;
+            --black: #000000;
+            --white: #FFFFFF;
+            --dark-grey: #1a1a1a;
+            --light-grey: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .bg-light {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--red); /* Default for titles */
+            text-transform: uppercase;
+            position: relative;
+            opacity: 0; /* For scroll animation */
+            transform: translateY(20px); /* For scroll animation */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title .highlight-text {
+            color: var(--white); /* For Collection subtitle */
+            display: block; /* New line for "BEST PRICE" */
+            font-size: 0.7em;
+            font-weight: 400;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 40px;
+            opacity: 0; /* For scroll animation */
+            transform: translateY(20px); /* For scroll animation */
+            transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s;
+        }
+
+        .section-subtitle.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tagline-white {
+            font-size: 0.5em; /* Adjust relative to main title */
+            display: block;
+            margin-top: 10px;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        .tagline-black {
+            font-size: 0.5em; /* Adjust relative to main title */
+            display: block;
+            margin-top: 10px;
+            color: var(--black);
+            font-weight: 400;
+        }
+
+
+        /* Header Section */
+        .header-section {
+            background-color: var(--black);
+            padding: 60px 0;
+            text-align: center;
+            min-height: 300px; /* Ensures space for blinking title */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #site-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            transition: color 0.3s ease-in-out; /* Smooth transition for blinking */
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden;
+        }
+
+        .header-section .tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5em;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        /* Collection Section */
+        .collection-section {
+            background-color: var(--black);
+            padding-top: 0; /* Title has its own padding */
+        }
+
+        .collection-content {
+            text-align: center;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .collection-image-placeholder img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: cover;
+            display: block;
+            margin: 40px auto 0; /* Space below title */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0; /* For scroll animation */
+            transform: translateY(30px); /* For scroll animation */
+            transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s;
+        }
+
+        .collection-image-placeholder img.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Category Section */
+        .category-section {
+            background-color: var(--white);
+            color: var(--black);
+            text-align: center;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .category-card {
+            background-color: var(--white);
+            border: 2px solid var(--black);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            transform: translateY(30px); /* For scroll animation */
+            opacity: 0; /* For scroll animation */
+        }
+
+        .category-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--red);
+            box-shadow: 0 8px 20px rgba(var(--red), 0.2); /* Red shadow on hover */
+        }
+
+        .category-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            color: var(--black);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .category-card p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            color: var(--dark-grey);
+            margin-bottom: 20px;
+        }
+
+        .shoe-carousel {
+            display: flex;
+            overflow-x: hidden; /* Hide scrollbar */
+            scroll-snap-type: x mandatory;
+            width: 100%;
+            border-radius: 8px;
+            position: relative;
+            height: 300px; /* Fixed height for consistency */
+        }
+
+        .shoe-carousel img {
+            flex: 0 0 100%; /* Each image takes full width of the carousel */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scroll-snap-align: start;
+            transition: transform 0.3s ease; /* For hover effect */
+        }
+
+        /* Image Hover Effects (Zoom) */
+        .shoe-carousel img:hover {
+            transform: scale(1.03); /* Subtle zoom */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Soft shadow pop */
+        }
+
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--black);
+            text-align: center;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .contact-icon-link {
+            font-size: 3.5em;
+            color: var(--white);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-icon-link:hover {
+            color: var(--red);
+            transform: scale(1.1); /* Slight bounce/scale effect */
+        }
+
+
+        /* Location Map Section */
+        .location-section {
+            text-align: center;
+        }
+
+        .map-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 40px auto 0;
+            border: 2px solid var(--black);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-container iframe {
+            border-radius: 8px; /* Match container border-radius */
+        }
+
+
+        /* Footer Highlights */
+        .footer-highlights {
+            background-color: var(--black);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-highlights .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            gap: 30px;
+        }
+
+        .footer-box {
+            background-color: var(--black);
+            color: var(--white);
+            border: 2px solid var(--red); /* Red border */
+            padding: 15px 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 8px;
+            min-width: 150px; /* Ensure boxes are not too small */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .footer-box:hover {
+            background-color: var(--red);
+            color: var(--white); /* Keep text white on red background */
+            border-color: var(--white); /* White border on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.8em;
+            }
+            #site-title {
+                font-size: 3.5em;
+            }
+            .header-section .tagline {
+                font-size: 1.2em;
+            }
+            .category-card {
+                padding: 25px;
+            }
+            .contact-icon-link {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            .section-title {
+                font-size: 2.2em;
+            }
+            .section-title .highlight-text {
+                font-size: 0.8em;
+            }
+            #site-title {
+                font-size: 2.8em;
+            }
+            .header-section .tagline {
+                font-size: 1em;
+            }
+            .category-grid {
+                grid-template-columns: 1fr; /* Stack categories on small screens */
+            }
+            .footer-highlights .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-box {
+                width: 80%; /* Adjust width for stacked boxes */
+                max-width: 250px;
+            }
+            .contact-icons {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .contact-icon-link {
+                font-size: 2.5em;
+            }
+            .map-container {
+                border-radius: 5px; /* Less aggressive on small screens */
+            }
+            .collection-image-placeholder img {
+                margin: 20px auto 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8em;
+            }
+            .section-title .highlight-text {
+                font-size: 0.9em;
+            }
+            #site-title {
+                font-size: 2.2em;
+            }
+            .header-section {
+                padding: 40px 0;
+            }
+            .section-subtitle {
+                font-size: 1em;
+            }
+            .footer-box {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-section">
+        <div class="container">
+            <h1 id="site-title">Shoe Town Gohana</h1>
+            <p class="tagline">Step Bold, Stay Sharp.</p>
+        </div>
+    </header>
+
+    <section class="collection-section section-padding">
+        <div class="container">
+            <div class="collection-content">
+                <h2 class="section-title">COLLECTION <span class="highlight-text">"BEST PRICE"</span></h2>
+                <p class="section-subtitle">#shoetowngohana_2</p>
+                <div class="collection-image-placeholder">
+                    <img src="https://i.ibb.co/m5dj8Kbd/banner.png" alt="Shoe Town Gohana Collection Banner">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title text-black">CATEGORY <span class="tagline-black">"Every Step, A Statement."</span></h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="sports">
+                    <h3>SPORTS SHOES</h3>
+                    <p>Unleash Your Inner Athlete.</p>
+                    <div class="shoe-carousel">
+                        <img src="https://i.ibb.co/RRd4phN/Add-a-subheading-20250730-084742-0006.jpg" alt="Sport Shoe">
+                        <img src="https://i.ibb.co/4wbzRdZz/Add-a-subheading-20250730-084742-0007.jpg" alt="Sport Shoe">
+                        <img src="https://i.ibb.co/5X0SgKmx/Add-a-subheading-20250730-084742-0008.jpg" alt="Sport Shoe">
+                    </div>
+                </div>
+                <div class="category-card" data-category="slippers">
+                    <h3>SLIPPERS</h3>
+                    <p>Comfort for Every Corner.</p>
+                    <div class="shoe-carousel">
+                        <img src="https://i.ibb.co/2Y8tDdqg/Add-a-subheading-20250730-084742-0000.jpg" alt="Slipper">
+                        <img src="https://i.ibb.co/n84ZP1zv/Add-a-subheading-20250730-084742-0001.jpg" alt="Slipper">
+                        <img src="https://i.ibb.co/TBfLLGcq/Add-a-subheading-20250730-084742-0002.jpg" alt="Slipper">
+                    </div>
+                </div>
+                <div class="category-card" data-category="funky">
+                    <h3>FUNKY SHOES</h3>
+                    <p>Express Yourself, Foot First.</p>
+                    <div class="shoe-carousel">
+                        <img src="https://i.ibb.co/zd9pdF5/Add-a-subheading-20250730-084742-0003.jpg" alt="Funky Shoe">
+                        <img src="https://i.ibb.co/YF64N9Fv/Add-a-subheading-20250730-084742-0004.jpg" alt="Funky Shoe">
+                        <img src="https://i.ibb.co/BKwkb2g3/Add-a-subheading-20250730-084742-0005.jpg" alt="Funky Shoe">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section section-padding">
+        <div class="container">
+            <h2 class="section-title">CONTACT US <span class="tagline-white">"We’re just a step away."</span></h2>
+            <div class="contact-icons">
+                <a href="https://www.instagram.com/shoetowngohana_2" target="_blank" class="contact-icon-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="tel:+917082802438" class="contact-icon-link">
+                    <i class="fas fa-phone"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-section section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title text-black">Find Us Here!</h2>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.597500161405!2d76.6212177!3d29.1170707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d96d29994c925%3A0x6d90d81b369c0258!2sShoe%20Town%20Gohana!5e0!3m2!1sen!2sin!4v1722306714249!5m2!1sen!2sin"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-highlights">
+        <div class="container">
+            <div class="footer-box">NO COD</div>
+            <div class="footer-box">BEST RATE</div>
+            <div class="footer-box">PREMIUM QUALITY</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Header Blinking Animation
+            const siteTitle = document.getElementById('site-title');
+            let isWhite = true;
+
+            setInterval(() => {
+                if (isWhite) {
+                    siteTitle.style.color = 'var(--red)';
+                } else {
+                    siteTitle.style.color = 'var(--white)';
+                }
+                isWhite = !isWhite;
+            }, 800); // Blinks every 800ms
+
+            // 2. Auto-slide Carousels
+            document.querySelectorAll('.shoe-carousel').forEach(carousel => {
+                let currentIndex = 0;
+                const images = carousel.querySelectorAll('img');
+                const totalImages = images.length;
+
+                if (totalImages === 0) return; // Prevent errors if no images
+
+                const slideImage = () => {
+                    currentIndex = (currentIndex + 1) % totalImages;
+                    carousel.scrollTo({
+                        left: currentIndex * carousel.offsetWidth,
+                        behavior: 'smooth'
+                    });
+                };
+
+                // Auto-slide every 3 seconds
+                setInterval(slideImage, 3000);
+
+                // Optional: Manual scroll handling for better UX if user interacts
+                carousel.addEventListener('scroll', () => {
+                    // Recalculate currentIndex based on scroll position
+                    const newIndex = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+                    currentIndex = newIndex;
+                });
+            });
+
+            // 3. Scroll Animations (Fade-in for sections)
+            const sections = document.querySelectorAll('.section-title, .section-subtitle, .collection-image-placeholder img, .category-card');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, {
+                threshold: 0.2, // Trigger when 20% of the element is visible
+                rootMargin: '0px'
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
