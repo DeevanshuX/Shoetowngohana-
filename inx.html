@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Canvas (HTML Only)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-font: 'Space Grotesk', sans-serif;
+            --text-color: #333;
+            --accent-color: #1a73e8; /* A modern blue */
+            /* 🖼️ Replace the URL below with a high-res, abstract, or texture image for the best effect. */
+            --background-url: url('https://picsum.photos/1920/1080?random=1'); 
+        }
+
+        html, body {
+            font-family: var(--primary-font);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* ---------------------------------------------------- */
+        /* THE UNIQUE AESTHETIC EFFECT */
+        /* ---------------------------------------------------- */
+
+        /* This is the fixed element that provides the unique depth */
+        .background-canvas {
+            position: fixed; /* Crucial: Fixes the background to the viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--background-url);
+            background-size: cover;
+            background-position: center;
+            /* This is the key to the immersive scrolling effect */
+            background-attachment: fixed; 
+            filter: brightness(0.9) grayscale(0.2); /* Soft filter for aesthetic */
+            z-index: -1; /* Puts it behind all content */
+        }
+
+        /* The content wrapper sits over the fixed background and scrolls normally */
+        .content-wrapper {
+            position: relative;
+            z-index: 1; /* Ensures content is above the background */
+            min-height: 200vh; /* Make it tall enough to scroll and show the effect */
+        }
+
+        /* ---------------------------------------------------- */
+        /* TYPOGRAPHY AND LAYOUT */
+        /* ---------------------------------------------------- */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent header */
+            backdrop-filter: blur(5px); /* Modern blur effect */
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Section Styling */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            text-decoration: none;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-block; /* Essential for padding/margin to work */
+        }
+
+        .cta-button:hover {
+            background-color: #0d47a1;
+            transform: translateY(-2px);
+        }
+
+        .feature-block {
+            background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent content blocks */
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-block h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-canvas"></div>
+
+    <div class="content-wrapper">
+
+        <header>
+            <div class="logo">**CANVAS**</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#work">Work</a>
+                <a href="#about">About</a>
+            </nav>
+        </header>
+
+        <section class="hero" id="home">
+            <h1>**Sculpting Digital Experiences**</h1>
+            <p>A space for **bold** ideas and **minimal** execution. Scroll down to see the unique continuous scroll effect.</p>
+            <a href="#work" class="cta-button">Explore Projects</a>
+        </section>
+
+        <section class="feature-block" id="work">
+            <h2>**Depth & Simplicity**</h2>
+            <p>The aesthetic is achieved by setting a background image to be **fixed** to the screen, while the white, semi-transparent content blocks scroll over it. This creates a powerful sense of depth and a high-end, gallery-like feel.</p>
+        </section>
+
+        <section class="feature-block" id="about">
+            <h2>**The Immersive Scroll**</h2>
+            <p>The key CSS property is `background-attachment: fixed;`. Combined with a crisp, modern font like Space Grotesk and a muted color scheme, this simple HTML file delivers a unique, never-before-seen aesthetic in a highly accessible package.</p>
+        </section>
+        
+        <section style="height: 30vh;"></section>
+
+        <footer>
+            <p>&copy; 2025 The Digital Canvas. Created with HTML and CSS only.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
